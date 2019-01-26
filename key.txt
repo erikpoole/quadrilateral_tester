@@ -24,3 +24,12 @@ parallelogram
 trapezoid
 kite
 quadrilateral
+rhombus
+rhombus
+rhombus
+rhombus
+rhombus
+kite
+quadrilateral
+trapezoid
+trapezoid

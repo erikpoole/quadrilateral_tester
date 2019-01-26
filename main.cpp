@@ -47,10 +47,6 @@ public:
         
     }
     
-    Point getPoint(const int& pointNumber) const {return pointArr[pointNumber];}
-    int getXOffset() const {return xOffset;}
-    int getYOffset() const {return yOffset;}
-    
     double getLength() {
         return sqrt((double) xOffset*xOffset + (double) yOffset*yOffset);
     }
@@ -102,7 +98,6 @@ public:
         diagonalArr[1] = Line(pointArr[1], pointArr[3]);
     }
     
-    Point getPoint(const int& pointNumber) const {return pointArr[pointNumber];}
     Line getSide(const int& sideNumber) const {return sideArr[sideNumber];}
     Line getDiagonal(int diagonalNumber) const {return diagonalArr[diagonalNumber];}
     
@@ -144,9 +139,6 @@ bool isRhombus(const Shape& inputShape) {
     }
     for (int i = 0; i < 3; i++) {
         if (!areEquivalent(inputShape.getSide(i).getLength(), inputShape.getSide(i+1).getLength())) {
-            return false;
-        }
-        if (!areEquivalent(inputShape.getSide(0).getLength(), inputShape.getSide(3).getLength())) {
             return false;
         }
     }

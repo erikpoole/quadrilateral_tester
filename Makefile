@@ -3,5 +3,4 @@ default:
 	clang++ -o ShapeFinder main.o
 
 test:
-	./ShapeFinder < input.txt > output.txt
-	diff key.txt output.txt
+	./test.sh

@@ -1,4 +1,4 @@
-kite
+square
 square
 rectangle
 rectangle

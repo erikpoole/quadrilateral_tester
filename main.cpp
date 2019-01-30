@@ -101,6 +101,7 @@ public:
     Line getSide(const int& sideNumber) const {return sideArr[sideNumber];}
     Line getDiagonal(int diagonalNumber) const {return diagonalArr[diagonalNumber];}
     
+    
 };
 
 //****************************************************************************************************
@@ -180,17 +181,62 @@ bool isTrapezoid(const Shape& inputShape) {
 //****************************************************************************************************
 //****************************************************************************************************
 
+bool isValidInput(std::string inputString) {
+    if (!std::isdigit(inputString[0])) {
+        return false;
+    }
+    int numberCount = 1;
+    int spaceCount = 0;
+    int valueCount = 1;
+    for (int i = 1; i < inputString.length()-1; i++) {
+        if (std::isdigit(inputString[i])) {
+            numberCount++;
+            spaceCount = 0;
+        } else if (inputString[i] == ' ') {
+            numberCount = 0;
+            spaceCount++;
+            valueCount++;
+        } else {
+            return false;
+        }
+        
+        if (numberCount > 3 || spaceCount > 1) {
+            return false;
+        }
+    }
+    if (valueCount != 6) {
+        return false;
+    }
+    
+    return true;
+}
+
+//****************************************************************************************************
+//****************************************************************************************************
+
 
 int main(int argc, const char * argv[]) {
+//    std::cout << "poop" << std::endl;
     std::string inputString;
     while(std::getline(std::cin, inputString)) {
-        std::stringstream stringStream(inputString);
+        if (!isValidInput(inputString)) {
+            std::cout << "error 1" << std::endl;
+            return 0;
+        }
         
+        std::stringstream stringStream(inputString);
         std::string singleInput;
         int inputValueArray[6];
         int *inputValuePointer = inputValueArray;
         while (std::getline(stringStream, singleInput, ' ')){
             *inputValuePointer++ = std::stoi(singleInput);
+        }
+        
+        for (int value : inputValueArray) {
+            if (value > 100) {
+                std::cout << "error 1" << std::endl;
+                return 0;
+            }
         }
         
         Point point1(inputValueArray[0], inputValueArray[1]);

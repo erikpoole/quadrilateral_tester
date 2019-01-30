@@ -7,4 +7,9 @@ trapezoid
 kite
 kite
 parallelogram
+parallelogram
+rhombus
+rhombus
+square
+rectangle
 error 1

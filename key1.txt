@@ -1,0 +1,4 @@
+square
+square
+rectangle
+error 1

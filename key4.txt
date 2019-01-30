@@ -4,7 +4,4 @@ rectangle
 rectangle
 trapezoid
 trapezoid
-kite
-kite
-parallelogram
 error 1

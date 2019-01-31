@@ -133,14 +133,6 @@ public:
                 }
             }
         }
-        //checks crossing points
-        //assumes counter-clockwise rotation & all values positive
-        if (sideArr[3].getSlope() < diagonalArr[1].getSlope() ||
-        sideArr[3].getSlope() < sideArr[0].getSlope()) {
-                std::cout << "error 3" << std::endl;
-                return false;
-            }
-        
         //checks 3 colinear points
         for (int i = 0; i < sizeof(pointArr)/sizeof(Point); i++) {
             int j = (i + 1) % 4;
@@ -149,6 +141,14 @@ public:
                 std::cout << "error 4" << std::endl;
                 return false;
             }
+        }
+        
+        //checks crossing points
+        //assumes counter-clockwise rotation & all values positive
+        if (sideArr[3].getSlope() < diagonalArr[1].getSlope() ||
+            sideArr[3].getSlope() < sideArr[0].getSlope()) {
+            std::cout << "error 3" << std::endl;
+            return false;
         }
         
         return true;

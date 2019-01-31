@@ -7,4 +7,5 @@ trapezoid
 kite
 kite
 parallelogram
-error 1
+parallelogram
+error 4

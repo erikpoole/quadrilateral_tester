@@ -2,20 +2,20 @@
 ./ShapeFinder < input0.txt > output.txt
 diff key0.txt output.txt
 if [ $? -eq 0 ]; then
-    echo "No Errors!"
+echo "No Errors!"
 else
-    echo "Errors Found in Shape Classification!"
-    exit 1
+echo "Errors Found in Shape Classification!"
+exit 1
 fi
 
 # Error 1 - Input Value Too High
 ./ShapeFinder < input1.txt > output.txt
 diff key1.txt output.txt
 if [ $? -eq 0 ]; then
-    echo "No Errors!"
+echo "No Errors!"
 else
-    echo "Errors Found - Input Value Too High!"
-    exit 1
+echo "Errors Found - Input Value Too High!"
+exit 1
 fi
 
 # Error 1 - Leading Spaces
@@ -79,4 +79,36 @@ echo "Errors Found - Too Many Inputs!"
 exit 1
 fi
 
+# Error 2 - Coinciding Points
+./ShapeFinder < input8.txt > output.txt
+diff key8.txt output.txt
+if [ $? -eq 0 ]; then
+echo "No Errors!"
+else
+echo "Errors Found - Coinciding Points!"
+exit 1
+fi
+
+# Error 3 - Crossing Lines
+./ShapeFinder < input9.txt > output.txt
+diff key9.txt output.txt
+if [ $? -eq 0 ]; then
+echo "No Errors!"
+else
+echo "Errors Found - Crossing Lines!"
+exit 1
+fi
+
+# Error 4 - Colinear Points
+./ShapeFinder < input10.txt > output.txt
+diff key10.txt output.txt
+if [ $? -eq 0 ]; then
+echo "No Errors!"
+else
+echo "Errors Found - Colinear Points!"
+exit 1
+fi
+
 exit 0
+
+

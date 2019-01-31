@@ -10,6 +10,18 @@
 #include <sstream>
 #include <cmath>
 
+bool areEquivalent(double double1, double double2) {
+    return abs(double1 - double2) < .0001;
+}
+
+bool areEquivalent(double double1, double double2, double double3) {
+    return abs(double1 - double2) < .0001 && abs(double2 - double3) < .001;
+}
+
+//****************************************************************************************************
+//****************************************************************************************************
+
+
 class Point{
 private:
     float x;
@@ -26,6 +38,15 @@ public:
     
     float getX() const {return x;}
     float getY() const {return y;}
+    
+    bool equals(Point inputPoint) {
+        if (x == inputPoint.getX()) {
+            if (y == inputPoint.getY()) {
+                return true;
+            }
+        }
+        return false;
+    }
 };
 
 
@@ -96,21 +117,43 @@ public:
         //diagonals
         diagonalArr[0] = Line(pointArr[0], pointArr[2]);
         diagonalArr[1] = Line(pointArr[1], pointArr[3]);
+        
     }
     
     Line getSide(const int& sideNumber) const {return sideArr[sideNumber];}
     Line getDiagonal(int diagonalNumber) const {return diagonalArr[diagonalNumber];}
-    
-    
+
+    bool isValid() {
+        //checks intersecting points
+        for (int i = 0; i < sizeof(pointArr)/sizeof(Point); i++) {
+            for (int j = i+1; j < sizeof(pointArr)/sizeof(Point); j++) {
+                if (pointArr[i].equals(pointArr[j])) {
+                    std::cout << "error 2" << std::endl;
+                    return false;
+                }
+            }
+        }
+        //checks crossing points
+        //assumes counter-clockwise rotation & all values positive
+        if (sideArr[3].getSlope() < diagonalArr[1].getSlope() ||
+        sideArr[3].getSlope() < sideArr[0].getSlope()) {
+                std::cout << "error 3" << std::endl;
+                return false;
+            }
+        
+        //checks 3 colinear points
+        for (int i = 0; i < sizeof(pointArr)/sizeof(Point); i++) {
+            int j = (i + 1) % 4;
+            int k = i % 2;
+            if (areEquivalent(sideArr[i].getSlope(), sideArr[j].getSlope(), diagonalArr[k].getSlope())) {
+                std::cout << "error 4" << std::endl;
+                return false;
+            }
+        }
+        
+        return true;
+    }
 };
-
-//****************************************************************************************************
-//****************************************************************************************************
-
-
-bool areEquivalent(double double1, double double2) {
-    return abs(double1 - double2) < .0001;
-}
 
 //****************************************************************************************************
 //****************************************************************************************************
@@ -243,6 +286,10 @@ int main(int argc, const char * argv[]) {
         Point point2(inputValueArray[2], inputValueArray[3]);
         Point point3(inputValueArray[4], inputValueArray[5]);
         Shape shape(point1, point2, point3);
+        
+        if (!shape.isValid()) {
+            return 0;
+        }
         
         std::string outputString;
         if (isSquare(shape)) {

@@ -14,7 +14,6 @@ square
 rectangle
 parallelogram
 trapezoid
-quadrilateral
 rhombus
 rhombus
 rhombus

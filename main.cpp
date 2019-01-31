@@ -86,9 +86,11 @@ public:
         if (pointArr[0].getX() > pointArr[1].getX() && pointArr[0].getY() < pointArr[1].getY()) {
             slope *= -1;
         }
-        if (pointArr[0].getX() < pointArr[1].getX() && pointArr[0].getY() > pointArr[1].getY()) {
-            slope *= -1;
-        }
+        //impossible to reach given that points are given in counter-clockwise order and only positive inputs
+        // point 0 -> 1 will always be either a positive slope or fixed by the first condition above
+//        if (pointArr[0].getX() < pointArr[1].getX() && pointArr[0].getY() > pointArr[1].getY()) {
+//            slope *= -1;
+//        }
         return slope;
     }
 };

@@ -1,11 +1,1 @@
-square
-square
-rectangle
-rectangle
-trapezoid
-trapezoid
-kite
-kite
-parallelogram
-parallelogram
-error 4
+error 3

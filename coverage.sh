@@ -36,5 +36,5 @@ lastTest=${currentTest}
 done
 
 #show code coverage
-xcrun llvm-cov show ./coverage -instr-profile=./${lastTest}.profdata main.cpp
+xcrun llvm-cov show ./coverage -instr-profile=./${lastTest}.profdata
 

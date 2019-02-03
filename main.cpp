@@ -308,7 +308,7 @@ bool isValidInput(std::string inputString) {
 
 
 int main(int argc, const char * argv[]) {
-    std::cout << "poop" << std::endl;
+//    std::cout << "poop" << std::endl;
     std::string inputString;
     while(std::getline(std::cin, inputString)) {
         if (!isValidInput(inputString)) {

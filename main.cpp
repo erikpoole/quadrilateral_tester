@@ -146,15 +146,34 @@ public:
         }
         
         //checks crossing points
-        //assumes counter-clockwise rotation & all values positive
-        if (sideArr[3].getSlope() < diagonalArr[1].getSlope() ||
-            sideArr[3].getSlope() < sideArr[0].getSlope()) {
+        //checks clockwise:
+        if (sideArr[3].getSlope() < sideArr[0].getSlope()) {
             std::cout << "error 3" << std::endl;
             return false;
         }
-        
+        if (sideArr[3].getSlope() < diagonalArr[0].getSlope()) {
+            //if second line's slope is positive
+            if (sideArr[1].getSlope() > 0) {
+                //if third line's slope is negative
+                if (sideArr[2].getSlope() < 0) {
+                    std::cout << "error 3" << std::endl;
+                    return false;
+                //if third line's slope is positive
+                } else if (sideArr[2].getSlope() > sideArr[1].getSlope()) {
+                    std::cout << "error 3" << std::endl;
+                    return false;
+                }
+            //if second line's slope is negative
+            } else {
+                if (diagonalArr[1].getSlope() < sideArr[1].getSlope()) {
+                    std::cout << "error 3" << std::endl;
+                    return false;
+                }
+            }
+        }
         return true;
     }
+
 };
 
 //****************************************************************************************************
@@ -261,7 +280,7 @@ bool isValidInput(std::string inputString) {
 
 
 int main(int argc, const char * argv[]) {
-//    std::cout << "poop" << std::endl;
+    std::cout << "poop" << std::endl;
     std::string inputString;
     while(std::getline(std::cin, inputString)) {
         if (!isValidInput(inputString)) {

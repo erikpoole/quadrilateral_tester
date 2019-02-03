@@ -9,7 +9,6 @@ def clean_old_files():
     os.system("rm -f *.txt")
 
     os.chdir("../..")
-    os.system("clang++ -std=c++17 -fprofile-instr-generate -fcoverage-mapping main.cpp -o coverage")
     os.system("rm -f *.profdata")
     os.system("rm -f *.profraw")
     os.system("rm -f coverage.txt")
@@ -18,6 +17,7 @@ def clean_old_files():
 
 def create_coverage():
     os.chdir("..")
+    os.system("clang++ -std=c++17 -fprofile-instr-generate -fcoverage-mapping main.cpp -o coverage")
     os.system("touch fuzzOutput.profdata")
     testSet = glob.glob("./randomTesting/tests/*txt")
 
@@ -34,6 +34,17 @@ def create_coverage():
 
     os.chdir("./randomTesting")
 
+def run_tests():
+    os.chdir("..")
+
+    testSet = glob.glob("./randomTesting/tests/*txt")
+
+    for test in testSet:
+        print(test[22:-4])
+        os.system("./ShapeFinder < " + test)
+
+    os.chdir("./randomTesting")
+
 clean_old_files()
 
 for x in range(1, 101):
@@ -45,6 +56,5 @@ for x in range(1, 101):
         file.write(" ")
     file.write(str(random.randint(0, 101)))
 
-
-
+run_tests()
 create_coverage()

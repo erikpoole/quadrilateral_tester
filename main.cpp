@@ -86,11 +86,9 @@ public:
         if (pointArr[0].getX() > pointArr[1].getX() && pointArr[0].getY() < pointArr[1].getY()) {
             slope *= -1;
         }
-        //impossible to reach given that points are given in counter-clockwise order and only positive inputs
-        // point 0 -> 1 will always be either a positive slope or fixed by the first condition above
-//        if (pointArr[0].getX() < pointArr[1].getX() && pointArr[0].getY() > pointArr[1].getY()) {
-//            slope *= -1;
-//        }
+        if (pointArr[0].getX() < pointArr[1].getX() && pointArr[0].getY() > pointArr[1].getY()) {
+            slope *= -1;
+        }
         return slope;
     }
 };
@@ -148,26 +146,46 @@ public:
         //checks crossing points
         //checks clockwise:
         if (sideArr[3].getSlope() < sideArr[0].getSlope()) {
-            std::cout << "error 3" << std::endl;
-            return false;
-        }
-        if (sideArr[3].getSlope() < diagonalArr[0].getSlope()) {
-            //if second line's slope is positive
-            if (sideArr[1].getSlope() > 0) {
-                //if third line's slope is negative
-                if (sideArr[2].getSlope() < 0) {
-                    std::cout << "error 3" << std::endl;
-                    return false;
-                //if third line's slope is positive
-                } else if (sideArr[2].getSlope() > sideArr[1].getSlope()) {
-                    std::cout << "error 3" << std::endl;
-                    return false;
+            if (sideArr[3].getSlope() > diagonalArr[0].getSlope()) {
+                //if second line's slope is negative
+                if (sideArr[1].getSlope() < 0) {
+                    //if third line's slope is positive
+                    if (sideArr[2].getSlope() > 0) {
+                        std::cout << "error 3" << std::endl;
+                        return false;
+                    //if third line's slope is negative
+                    } else if (sideArr[2].getSlope() < sideArr[1].getSlope()) {
+                        std::cout << "error 3" << std::endl;
+                        return false;
+                    }
+                //if second line's slope is positive
+                } else {
+                    if (diagonalArr[1].getSlope() > sideArr[1].getSlope()) {
+                        std::cout << "error 3" << std::endl;
+                        return false;
+                    }
                 }
-            //if second line's slope is negative
-            } else {
-                if (diagonalArr[1].getSlope() < sideArr[1].getSlope()) {
-                    std::cout << "error 3" << std::endl;
-                    return false;
+            }
+        //checks counter-clockwise:
+        } else {
+            if (sideArr[3].getSlope() < diagonalArr[0].getSlope()) {
+                //if second line's slope is positive
+                if (sideArr[1].getSlope() > 0) {
+                    //if third line's slope is negative
+                    if (sideArr[2].getSlope() < 0) {
+                        std::cout << "error 3" << std::endl;
+                        return false;
+                        //if third line's slope is positive
+                    } else if (sideArr[2].getSlope() > sideArr[1].getSlope()) {
+                        std::cout << "error 3" << std::endl;
+                        return false;
+                    }
+                    //if second line's slope is negative
+                } else {
+                    if (diagonalArr[1].getSlope() < sideArr[1].getSlope()) {
+                        std::cout << "error 3" << std::endl;
+                        return false;
+                    }
                 }
             }
         }
@@ -280,7 +298,7 @@ bool isValidInput(std::string inputString) {
 
 
 int main(int argc, const char * argv[]) {
-    std::cout << "poop" << std::endl;
+//    std::cout << "poop" << std::endl;
     std::string inputString;
     while(std::getline(std::cin, inputString)) {
         if (!isValidInput(inputString)) {

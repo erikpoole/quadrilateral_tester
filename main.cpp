@@ -165,6 +165,11 @@ public:
                         return false;
                     }
                 }
+            } else {
+                if (sideArr[0].getSlope() < diagonalArr[0].getSlope()) {
+                    std::cout << "error 3" << std::endl;
+                    return false;
+                }
             }
         //checks counter-clockwise:
         } else {
@@ -186,6 +191,11 @@ public:
                         std::cout << "error 3" << std::endl;
                         return false;
                     }
+                }
+            } else {
+                if (sideArr[0].getSlope() > diagonalArr[0].getSlope()) {
+                    std::cout << "error 3" << std::endl;
+                    return false;
                 }
             }
         }
@@ -298,7 +308,7 @@ bool isValidInput(std::string inputString) {
 
 
 int main(int argc, const char * argv[]) {
-//    std::cout << "poop" << std::endl;
+    std::cout << "poop" << std::endl;
     std::string inputString;
     while(std::getline(std::cin, inputString)) {
         if (!isValidInput(inputString)) {

@@ -52,9 +52,9 @@ for x in range(1, 101):
     file = open("./tests/" + filename, "w+")
 
     for y in range (0, 5):
-        file.write(str(random.randint(0, 101)))
+        file.write(str(random.randint(0, 100)))
         file.write(" ")
-    file.write(str(random.randint(0, 101)))
+    file.write(str(random.randint(0, 100)))
 
 run_tests()
 create_coverage()

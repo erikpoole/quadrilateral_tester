@@ -274,6 +274,10 @@ bool isTrapezoid(const Shape& inputShape) {
 //****************************************************************************************************
 
 bool isValidInput(std::string inputString) {
+    if (inputString.size() == 0) {
+        return false;
+    }
+    
     if (!std::isdigit(inputString[0])) {
         return false;
     }
@@ -310,7 +314,9 @@ bool isValidInput(std::string inputString) {
 int main(int argc, const char * argv[]) {
 //    std::cout << "poop" << std::endl;
     std::string inputString;
+    bool linePresent = false;
     while(std::getline(std::cin, inputString)) {
+        linePresent = true;
         if (!isValidInput(inputString)) {
             std::cout << "error 1" << std::endl;
             return 0;
@@ -357,5 +363,10 @@ int main(int argc, const char * argv[]) {
             outputString = "quadrilateral";
         }
         std::cout << outputString << std::endl;
+    }
+    
+    if (!linePresent) {
+        std::cout << "error 1" << std::endl;
+        return 0;
     }
 }

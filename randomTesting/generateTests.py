@@ -1,6 +1,5 @@
 import os
 import glob
-import filecmp
 import random
 import string
 
@@ -46,17 +45,41 @@ def create_coverage():
     os.chdir("./randomTesting")
 
 
+def run_error_tests(input_set, start, end):
+    os.chdir("./tests")
+
+    for x in range(start, end):
+        global errorFound
+        os.system("../../ShapeFinder < " + input_set[x] + "> output.txt")
+
+        outputFile = open("output.txt", "r")
+        outputString = outputFile.readline()[:-1]
+
+        outputFile.close()
+
+        if len(outputString) == 0:
+            print(input_set[x][:-4] + " Error")
+            errorFound = True
+
+
+    os.chdir("..")
+
+
 def run_tests(input_set, input_type, start, end):
+    global errorFound
     os.chdir("./tests")
 
     for x in range(start, end):
         os.system("../../ShapeFinder < " + input_set[x] + "> output.txt")
-        keyFile = open("key.txt", "w+")
-        keyFile.write(input_type + "\n")
-        keyFile.close()
 
-        if not filecmp.cmp("key.txt", "output.txt", shallow=False):
+        outputFile = open("output.txt", "r")
+        outputString = outputFile.readline()[:-1]
+
+        outputFile.close()
+
+        if not outputString == input_type:
             print(input_set[x][:-4] + " Error")
+            errorFound = True
 
     os.chdir("..")
 
@@ -109,6 +132,10 @@ def generate_rectangles(start, end):
 
         xScaler = random.randint(1, 100)
         yScaler = random.randint(1, 100)
+
+        while xScaler == yScaler:
+            xScaler = random.randint(1, 100)
+
         valueList = [xScaler, 0, xScaler, yScaler, 0, yScaler];
 
         print_points_to_file(currentFile, valueList)
@@ -176,8 +203,8 @@ def generate_kites(start, end):
         filename = "Test" + str(x) + ".txt"
         currentFile = open("./tests/" + filename, "w+")
 
-        scaler = random.randint(1, 51)
-        shift = random.randint(1, 51);
+        scaler = random.randint(1, 50)
+        shift = random.randint(1, 50);
         valueList = [scaler, 0, scaler + shift, scaler + shift, 0, scaler];
 
         print_points_to_file(currentFile, valueList)
@@ -188,29 +215,34 @@ def generate_kites(start, end):
 #****************************************************************************************************
 #****************************************************************************************************
 
+errorFound = False
+
 clean_old_files()
 
-generate_random_chars(1, 101)
-generate_valid_ints(101, 201)
-generate_squares(201, 301)
-generate_rectangles(301, 401)
-generate_parallelograms(401, 501)
-generate_trapezoids(501, 601)
-generate_rhombi(601, 701)
-generate_kites(701, 801)
+generate_random_chars(1, 201)
+generate_valid_ints(201, 401)
+generate_squares(401, 501)
+generate_rectangles(501, 601)
+generate_parallelograms(601, 701)
+generate_trapezoids(701, 801)
+generate_rhombi(801, 901)
+generate_kites(901, 1001)
 
 os.chdir("./tests")
 test_set = glob.glob("*txt")
 sorted_tests = sorted(test_set, key=lambda name: int(name[4:-4]))
 os.chdir("..")
 
-run_tests(sorted_tests, "", 0, 100)
-run_tests(sorted_tests, "", 100, 200)
-run_tests(sorted_tests, "square", 200, 300)
-run_tests(sorted_tests, "rectangle", 300, 400)
-run_tests(sorted_tests, "parallelogram", 400, 500)
-run_tests(sorted_tests, "trapezoid", 500, 600)
-run_tests(sorted_tests, "rhombus", 600, 700)
-run_tests(sorted_tests, "kite", 700, 800)
+run_error_tests(sorted_tests, 0, 200)
+run_error_tests(sorted_tests, 200, 400)
+run_tests(sorted_tests, "square", 400, 500)
+run_tests(sorted_tests, "rectangle", 500, 600)
+run_tests(sorted_tests, "parallelogram", 600, 700)
+run_tests(sorted_tests, "trapezoid", 700, 800)
+run_tests(sorted_tests, "rhombus", 800, 900)
+run_tests(sorted_tests, "kite", 900, 1000)
 
 create_coverage()
+
+if not errorFound:
+    print("OK")

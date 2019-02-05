@@ -217,6 +217,7 @@ def generate_kites(start, end):
 
 errorFound = False
 
+os.system("mkdir tests")
 clean_old_files()
 
 generate_random_chars(1, 201)

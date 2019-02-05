@@ -3,8 +3,8 @@ default:
 	clang++ -o ShapeFinder main.o
 
 fuzzer:
-	clang++ -c main.cpp
-	clang++ -o ShapeFinder main.o
+	clang++ -g -fsanitize=address -c main.cpp
+	clang++ -g -fsanitize=address -o ShapeFinder main.o
 	cp fuzz.sh fuzz
 	chmod +x fuzz
 

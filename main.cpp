@@ -15,7 +15,7 @@ bool areEquivalent(double double1, double double2) {
 }
 
 bool areEquivalent(double double1, double double2, double double3) {
-    return abs(double1 - double2) < .0001 && abs(double2 - double3) < .001;
+    return abs(double1 - double2) < .0001 && abs(double2 - double3) < .0001;
 }
 
 //****************************************************************************************************
@@ -24,27 +24,23 @@ bool areEquivalent(double double1, double double2, double double3) {
 
 class Point{
 private:
-    float x;
-    float y;
+    int x;
+    int y;
     
 public:
-    Point() {
-    }
+    Point()
+    :x{0}, y{0} {}
     
-    Point(const float& xInput, const float& yInput) {
-        x = xInput;
-        y = yInput;
-    }
+    Point(const int& xInput, const int& yInput)
+    :x{xInput}, y{yInput} {}
     
-    float getX() const {return x;}
-    float getY() const {return y;}
+    int getX() const {return x;}
+    int getY() const {return y;}
     
     bool equals(Point inputPoint) {
-        if (x == inputPoint.getX()) {
-            if (y == inputPoint.getY()) {
+        if (x == inputPoint.getX() && y == inputPoint.getY()) {
                 return true;
             }
-        }
         return false;
     }
 };
@@ -57,7 +53,10 @@ private:
     Point pointArr[2];
     
 public:
-    Line() {
+    Line()
+    :xOffset{0}, yOffset{0} {
+        pointArr[0] = {Point()};
+        pointArr[1] = {Point()};
     }
     
     Line(const Point& point1, const Point& point2) {

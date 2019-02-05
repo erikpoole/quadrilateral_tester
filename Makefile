@@ -1,5 +1,5 @@
 default: 
-	clang++ -c main.cpp
+	clang++ -c -std=c++11 main.cpp
 	clang++ -o ShapeFinder main.o
 
 fuzzer:

@@ -10,9 +10,9 @@
    10|       |#include <sstream>
    11|       |#include <cmath>
    12|       |
-   13|  6.83k|bool areEquivalent(double double1, double double2) {
-   14|  6.83k|    return abs(double1 - double2) < .0001;
-   15|  6.83k|}
+   13|  6.79k|bool areEquivalent(double double1, double double2) {
+   14|  6.79k|    return abs(double1 - double2) < .0001;
+   15|  6.79k|}
    16|       |
    17|  3.20k|bool areEquivalent(double double1, double double2, double double3) {
    18|  3.20k|    return abs(double1 - double2) < .0001 && abs(double2 - double3) < .001;
@@ -36,12 +36,12 @@
    36|  3.20k|        y = yInput;
    37|  3.20k|    }
    38|       |    
-   39|  68.1k|    float getX() const {return x;}
-   40|  37.3k|    float getY() const {return y;}
+   39|  67.7k|    float getX() const {return x;}
+   40|  37.2k|    float getY() const {return y;}
    41|       |    
    42|  4.80k|    bool equals(Point inputPoint) {
    43|  4.80k|        if (x == inputPoint.getX()) {
-   44|    913|            if (y == inputPoint.getY()) {
+   44|    919|            if (y == inputPoint.getY()) {
    45|      0|                return true;
    46|      0|            }
    47|  4.80k|        }
@@ -68,29 +68,29 @@
    68|  4.80k|        
    69|  4.80k|    }
    70|       |    
-   71|  4.81k|    double getLength() {
-   72|  4.81k|        return sqrt((double) xOffset*xOffset + (double) yOffset*yOffset);
-   73|  4.81k|    }
+   71|  4.79k|    double getLength() {
+   72|  4.79k|        return sqrt((double) xOffset*xOffset + (double) yOffset*yOffset);
+   73|  4.79k|    }
    74|       |    
-   75|  23.3k|    double getSlope() {
-   76|  23.3k|        //handles 0 slope without division
-   77|  23.3k|        if (yOffset == 0) {
-   78|  4.64k|            return 0;
-   79|  4.64k|        }
+   75|  23.2k|    double getSlope() {
+   76|  23.2k|        //handles 0 slope without division
+   77|  23.2k|        if (yOffset == 0) {
+   78|  4.63k|            return 0;
+   79|  4.63k|        }
    80|  18.6k|        //handles infinite slope without division
    81|  18.6k|        if(xOffset == 0) {
-   82|  5.25k|            return INT_MAX;
-   83|  5.25k|        }
-   84|  13.4k|        
-   85|  13.4k|        double slope = (double) yOffset / (double) xOffset;
-   86|  13.4k|        if (pointArr[0].getX() > pointArr[1].getX() && pointArr[0].getY() < pointArr[1].getY()) {
-   87|  1.74k|            slope *= -1;
-   88|  1.74k|        }
-   89|  13.4k|        if (pointArr[0].getX() < pointArr[1].getX() && pointArr[0].getY() > pointArr[1].getY()) {
-   90|    441|            slope *= -1;
-   91|    441|        }
-   92|  13.4k|        return slope;
-   93|  13.4k|    }
+   82|  5.27k|            return INT_MAX;
+   83|  5.27k|        }
+   84|  13.3k|        
+   85|  13.3k|        double slope = (double) yOffset / (double) xOffset;
+   86|  13.3k|        if (pointArr[0].getX() > pointArr[1].getX() && pointArr[0].getY() < pointArr[1].getY()) {
+   87|  1.72k|            slope *= -1;
+   88|  1.72k|        }
+   89|  13.3k|        if (pointArr[0].getX() < pointArr[1].getX() && pointArr[0].getY() > pointArr[1].getY()) {
+   90|    475|            slope *= -1;
+   91|    475|        }
+   92|  13.3k|        return slope;
+   93|  13.3k|    }
    94|       |};
    95|       |
    96|       |
@@ -120,7 +120,7 @@
   120|    800|        
   121|    800|    }
   122|       |    
-  123|  12.8k|    Line getSide(const int& sideNumber) const {return sideArr[sideNumber];}
+  123|  12.7k|    Line getSide(const int& sideNumber) const {return sideArr[sideNumber];}
   124|    800|    Line getDiagonal(int diagonalNumber) const {return diagonalArr[diagonalNumber];}
   125|       |
   126|    800|    bool isValid() {
@@ -146,61 +146,61 @@
   146|    800|        //checks crossing points
   147|    800|        //checks clockwise:
   148|    800|        if (sideArr[3].getSlope() < sideArr[0].getSlope()) {
-  149|     95|            if (sideArr[3].getSlope() > diagonalArr[0].getSlope()) {
-  150|     34|                //if second line's slope is negative
-  151|     34|                if (sideArr[1].getSlope() < 0) {
-  152|     19|                    //if third line's slope is positive
-  153|     19|                    if (sideArr[2].getSlope() > 0) {
-  154|      8|                        std::cout << "error 3" << std::endl;
-  155|      8|                        return false;
-  156|      8|                    //if third line's slope is negative
-  157|     11|                    } else if (sideArr[2].getSlope() < sideArr[1].getSlope()) {
-  158|      5|                        std::cout << "error 3" << std::endl;
-  159|      5|                        return false;
-  160|      5|                    }
-  161|     15|                //if second line's slope is positive
-  162|     15|                } else {
-  163|     15|                    if (diagonalArr[1].getSlope() > sideArr[1].getSlope()) {
-  164|      6|                        std::cout << "error 3" << std::endl;
-  165|      6|                        return false;
-  166|      6|                    }
-  167|     61|                }
-  168|     61|            } else {
-  169|     61|                if (sideArr[0].getSlope() < diagonalArr[0].getSlope()) {
-  170|     30|                    std::cout << "error 3" << std::endl;
-  171|     30|                    return false;
-  172|     30|                }
-  173|    705|            }
-  174|    705|        //checks counter-clockwise:
-  175|    705|        } else {
-  176|    705|            if (sideArr[3].getSlope() < diagonalArr[0].getSlope()) {
+  149|    109|            if (sideArr[3].getSlope() > diagonalArr[0].getSlope()) {
+  150|     28|                //if second line's slope is negative
+  151|     28|                if (sideArr[1].getSlope() < 0) {
+  152|     16|                    //if third line's slope is positive
+  153|     16|                    if (sideArr[2].getSlope() > 0) {
+  154|      7|                        std::cout << "error 3" << std::endl;
+  155|      7|                        return false;
+  156|      7|                    //if third line's slope is negative
+  157|      9|                    } else if (sideArr[2].getSlope() < sideArr[1].getSlope()) {
+  158|      4|                        std::cout << "error 3" << std::endl;
+  159|      4|                        return false;
+  160|      4|                    }
+  161|     12|                //if second line's slope is positive
+  162|     12|                } else {
+  163|     12|                    if (diagonalArr[1].getSlope() > sideArr[1].getSlope()) {
+  164|      7|                        std::cout << "error 3" << std::endl;
+  165|      7|                        return false;
+  166|      7|                    }
+  167|     81|                }
+  168|     81|            } else {
+  169|     81|                if (sideArr[0].getSlope() < diagonalArr[0].getSlope()) {
+  170|     46|                    std::cout << "error 3" << std::endl;
+  171|     46|                    return false;
+  172|     46|                }
+  173|    691|            }
+  174|    691|        //checks counter-clockwise:
+  175|    691|        } else {
+  176|    691|            if (sideArr[3].getSlope() < diagonalArr[0].getSlope()) {
   177|     36|                //if second line's slope is positive
   178|     36|                if (sideArr[1].getSlope() > 0) {
-  179|     11|                    //if third line's slope is negative
-  180|     11|                    if (sideArr[2].getSlope() < 0) {
+  179|     12|                    //if third line's slope is negative
+  180|     12|                    if (sideArr[2].getSlope() < 0) {
   181|      3|                        std::cout << "error 3" << std::endl;
   182|      3|                        return false;
   183|      3|                        //if third line's slope is positive
-  184|      8|                    } else if (sideArr[2].getSlope() > sideArr[1].getSlope()) {
-  185|      4|                        std::cout << "error 3" << std::endl;
-  186|      4|                        return false;
-  187|      4|                    }
-  188|     25|                    //if second line's slope is negative
-  189|     25|                } else {
-  190|     25|                    if (diagonalArr[1].getSlope() < sideArr[1].getSlope()) {
-  191|      8|                        std::cout << "error 3" << std::endl;
-  192|      8|                        return false;
-  193|      8|                    }
-  194|    669|                }
-  195|    669|            } else {
-  196|    669|                if (sideArr[0].getSlope() > diagonalArr[0].getSlope()) {
-  197|     32|                    std::cout << "error 3" << std::endl;
-  198|     32|                    return false;
-  199|     32|                }
-  200|    704|            }
-  201|    705|        }
-  202|    704|        return true;
-  203|    704|    }
+  184|      9|                    } else if (sideArr[2].getSlope() > sideArr[1].getSlope()) {
+  185|      7|                        std::cout << "error 3" << std::endl;
+  186|      7|                        return false;
+  187|      7|                    }
+  188|     24|                    //if second line's slope is negative
+  189|     24|                } else {
+  190|     24|                    if (diagonalArr[1].getSlope() < sideArr[1].getSlope()) {
+  191|      6|                        std::cout << "error 3" << std::endl;
+  192|      6|                        return false;
+  193|      6|                    }
+  194|    655|                }
+  195|    655|            } else {
+  196|    655|                if (sideArr[0].getSlope() > diagonalArr[0].getSlope()) {
+  197|     21|                    std::cout << "error 3" << std::endl;
+  198|     21|                    return false;
+  199|     21|                }
+  200|    699|            }
+  201|    691|        }
+  202|    699|        return true;
+  203|    699|    }
   204|       |
   205|       |};
   206|       |
@@ -208,28 +208,28 @@
   208|       |//****************************************************************************************************
   209|       |
   210|       |
-  211|  2.41k|bool isParallelogram(const Shape& inputShape) {
-  212|  2.41k|    if (areEquivalent(inputShape.getSide(0).getSlope(), inputShape.getSide(2).getSlope())) {
+  211|  2.39k|bool isParallelogram(const Shape& inputShape) {
+  212|  2.39k|    if (areEquivalent(inputShape.getSide(0).getSlope(), inputShape.getSide(2).getSlope())) {
   213|  1.60k|        if (areEquivalent(inputShape.getSide(1).getSlope(), inputShape.getSide(3).getSlope())) {
   214|  1.20k|            return true;
   215|  1.20k|        }
-  216|  1.21k|    }
-  217|  1.21k|    return false;
-  218|  1.21k|}
+  216|  1.19k|    }
+  217|  1.19k|    return false;
+  218|  1.19k|}
   219|       |
-  220|    704|bool isRectangle(const Shape& inputShape) {
-  221|    704|    if (isParallelogram(inputShape)) {
+  220|    699|bool isRectangle(const Shape& inputShape) {
+  221|    699|    if (isParallelogram(inputShape)) {
   222|    400|        if (areEquivalent(inputShape.getDiagonal(0).getLength(), inputShape.getDiagonal(1).getLength())) {
   223|    200|            return true;
   224|    200|        }
-  225|    504|    }
-  226|    504|    return false;
-  227|    504|}
+  225|    499|    }
+  226|    499|    return false;
+  227|    499|}
   228|       |
-  229|  1.30k|bool isRhombus(const Shape& inputShape) {
-  230|  1.30k|    if (!isParallelogram(inputShape)) {
-  231|    608|        return false;
-  232|    608|    }
+  229|  1.29k|bool isRhombus(const Shape& inputShape) {
+  230|  1.29k|    if (!isParallelogram(inputShape)) {
+  231|    598|        return false;
+  232|    598|    }
   233|  1.60k|    for (int i = 0; i < 3; i++) {
   234|  1.30k|        if (!areEquivalent(inputShape.getSide(i).getLength(), inputShape.getSide(i+1).getLength())) {
   235|    400|            return false;
@@ -238,52 +238,52 @@
   238|    700|    return true;
   239|    700|}
   240|       |
-  241|    704|bool isSquare(const Shape& inputShape) {
-  242|    704|    return isRhombus(inputShape) && isRectangle(inputShape);
-  243|    704|}
+  241|    699|bool isSquare(const Shape& inputShape) {
+  242|    699|    return isRhombus(inputShape) && isRectangle(inputShape);
+  243|    699|}
   244|       |
-  245|    304|bool isKite(const Shape& inputShape) {
-  246|    304|    if (areEquivalent(inputShape.getSide(0).getLength(), inputShape.getSide(1).getLength())) {
+  245|    299|bool isKite(const Shape& inputShape) {
+  246|    299|    if (areEquivalent(inputShape.getSide(0).getLength(), inputShape.getSide(1).getLength())) {
   247|      0|        if (areEquivalent(inputShape.getSide(2).getLength(), inputShape.getSide(3).getLength())) {
   248|      0|            return true;
   249|      0|        }
-  250|    304|    }
-  251|    304|    if (areEquivalent(inputShape.getSide(1).getLength(), inputShape.getSide(2).getLength())) {
+  250|    299|    }
+  251|    299|    if (areEquivalent(inputShape.getSide(1).getLength(), inputShape.getSide(2).getLength())) {
   252|    100|        if (areEquivalent(inputShape.getSide(3).getLength(), inputShape.getSide(0).getLength())) {
   253|    100|            return true;
   254|    100|        }
-  255|    204|    }
-  256|    204|    return false;
-  257|    204|}
+  255|    199|    }
+  256|    199|    return false;
+  257|    199|}
   258|       |
-  259|    204|bool isTrapezoid(const Shape& inputShape) {
-  260|    204|    if (areEquivalent(inputShape.getSide(0).getSlope(), inputShape.getSide(2).getSlope())) {
-  261|    101|        if (!areEquivalent(inputShape.getSide(1).getSlope(), inputShape.getSide(3).getSlope())) {
-  262|    101|            return true;
-  263|    101|        }
-  264|    103|    }
-  265|    103|    if (areEquivalent(inputShape.getSide(1).getSlope(), inputShape.getSide(3).getSlope())) {
+  259|    199|bool isTrapezoid(const Shape& inputShape) {
+  260|    199|    if (areEquivalent(inputShape.getSide(0).getSlope(), inputShape.getSide(2).getSlope())) {
+  261|    100|        if (!areEquivalent(inputShape.getSide(1).getSlope(), inputShape.getSide(3).getSlope())) {
+  262|    100|            return true;
+  263|    100|        }
+  264|     99|    }
+  265|     99|    if (areEquivalent(inputShape.getSide(1).getSlope(), inputShape.getSide(3).getSlope())) {
   266|      0|        if (!areEquivalent(inputShape.getSide(0).getSlope(), inputShape.getSide(2).getSlope())) {
   267|      0|            return true;
   268|      0|        }
-  269|    103|    }
-  270|    103|    return false;
-  271|    103|}
+  269|     99|    }
+  270|     99|    return false;
+  271|     99|}
   272|       |
   273|       |//****************************************************************************************************
   274|       |//****************************************************************************************************
   275|       |
-  276|    999|bool isValidInput(std::string inputString) {
-  277|    999|    if (inputString.size() == 0) {
-  278|      1|        return false;
-  279|      1|    }
-  280|    998|    
-  281|    998|    if (!std::isdigit(inputString[0])) {
-  282|    180|        return false;
-  283|    180|    }
-  284|    818|    int numberCount = 1;
-  285|    818|    int spaceCount = 0;
-  286|    818|    int valueCount = 1;
+  276|    998|bool isValidInput(std::string inputString) {
+  277|    998|    if (inputString.size() == 0) {
+  278|      2|        return false;
+  279|      2|    }
+  280|    996|    
+  281|    996|    if (!std::isdigit(inputString[0])) {
+  282|    175|        return false;
+  283|    175|    }
+  284|    821|    int numberCount = 1;
+  285|    821|    int spaceCount = 0;
+  286|    821|    int valueCount = 1;
   287|  11.3k|    for (int i = 1; i < inputString.length()-1; i++) {
   288|  10.5k|        if (std::isdigit(inputString[i])) {
   289|  6.51k|            numberCount++;
@@ -293,16 +293,16 @@
   293|  4.00k|            spaceCount++;
   294|  4.00k|            valueCount++;
   295|  4.00k|        } else {
-  296|     17|            return false;
-  297|     17|        }
+  296|     21|            return false;
+  297|     21|        }
   298|  10.5k|        
   299|  10.5k|        if (numberCount > 3 || spaceCount > 1) {
   300|      0|            return false;
   301|      0|        }
   302|  10.5k|    }
-  303|    818|    if (valueCount != 6) {
-  304|      1|        return false;
-  305|      1|    }
+  303|    821|    if (valueCount != 6) {
+  304|      0|        return false;
+  305|      0|    }
   306|    800|    
   307|    800|    return true;
   308|    800|}
@@ -316,11 +316,11 @@
   316|  1.00k|    std::string inputString;
   317|  1.00k|    bool linePresent = false;
   318|  1.70k|    while(std::getline(std::cin, inputString)) {
-  319|    999|        linePresent = true;
-  320|    999|        if (!isValidInput(inputString)) {
-  321|    199|            std::cout << "error 1" << std::endl;
-  322|    199|            return 0;
-  323|    199|        }
+  319|    998|        linePresent = true;
+  320|    998|        if (!isValidInput(inputString)) {
+  321|    198|            std::cout << "error 1" << std::endl;
+  322|    198|            return 0;
+  323|    198|        }
   324|    800|        
   325|    800|        std::stringstream stringStream(inputString);
   326|    800|        std::string singleInput;
@@ -343,31 +343,31 @@
   343|    800|        Shape shape(point1, point2, point3);
   344|    800|        
   345|    800|        if (!shape.isValid()) {
-  346|     96|            return 0;
-  347|     96|        }
-  348|    704|        
-  349|    704|        std::string outputString;
-  350|    704|        if (isSquare(shape)) {
+  346|    101|            return 0;
+  347|    101|        }
+  348|    699|        
+  349|    699|        std::string outputString;
+  350|    699|        if (isSquare(shape)) {
   351|    100|            outputString = "square";
-  352|    604|        } else if (isRhombus(shape)) {
+  352|    599|        } else if (isRhombus(shape)) {
   353|    100|            outputString = "rhombus";
-  354|    504|        } else if (isRectangle(shape)) {
+  354|    499|        } else if (isRectangle(shape)) {
   355|    100|            outputString = "rectangle";
-  356|    404|        } else if (isParallelogram(shape)) {
+  356|    399|        } else if (isParallelogram(shape)) {
   357|    100|            outputString = "parallelogram";
-  358|    304|        } else if (isKite(shape)) {
+  358|    299|        } else if (isKite(shape)) {
   359|    100|            outputString = "kite";
-  360|    204|        } else if (isTrapezoid(shape)) {
-  361|    101|            outputString = "trapezoid";
-  362|    103|        } else {
-  363|    103|            outputString = "quadrilateral";
-  364|    103|        }
-  365|    704|        std::cout << outputString << std::endl;
-  366|    704|    }
+  360|    199|        } else if (isTrapezoid(shape)) {
+  361|    100|            outputString = "trapezoid";
+  362|    100|        } else {
+  363|     99|            outputString = "quadrilateral";
+  364|     99|        }
+  365|    699|        std::cout << outputString << std::endl;
+  366|    699|    }
   367|  1.00k|    
   368|  1.00k|    if (!linePresent) {
-  369|      2|        std::cout << "error 1" << std::endl;
-  370|      2|        return 0;
-  371|      2|    }
-  372|    706|}
+  369|      3|        std::cout << "error 1" << std::endl;
+  370|      3|        return 0;
+  371|      3|    }
+  372|    702|}
 

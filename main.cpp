@@ -165,13 +165,15 @@ public:
                     }
                 }
             } else {
-                if (sideArr[1].getSlope() < 0 && sideArr[1].getSlope() > sideArr[2].getSlope()) {
-                    std::cout << "error 3" << std::endl;
-                    return false;
-                }
-                if (sideArr[1].getSlope() >= 0 && sideArr[1].getSlope() < sideArr[0].getSlope()) {
-                    std::cout << "error 3" << std::endl;
-                    return false;
+                if (sideArr[0].getSlope() < diagonalArr[0].getSlope()) {
+                    if (diagonalArr[1].getSlope() >= 0 && sideArr[0].getSlope() < diagonalArr[1].getSlope()) {
+                        std::cout << "error 3" << std::endl;
+                        return false;
+                    }
+                    if (diagonalArr[1].getSlope() < 0 && sideArr[0].getSlope() > diagonalArr[1].getSlope()) {
+                        std::cout << "error 3" << std::endl;
+                        return false;
+                    }
                 }
             }
         //checks counter-clockwise:
@@ -196,13 +198,15 @@ public:
                     }
                 }
             } else {
-                if (sideArr[1].getSlope() > 0 && sideArr[1].getSlope() < sideArr[2].getSlope()) {
-                    std::cout << "error 3" << std::endl;
-                    return false;
-                }
-                if (sideArr[1].getSlope() <= 0 && sideArr[1].getSlope() > sideArr[0].getSlope()) {
-                    std::cout << "error 3" << std::endl;
-//                    return false;
+                if (sideArr[0].getSlope() > diagonalArr[0].getSlope()) {
+                    if (diagonalArr[1].getSlope() <= 0 && sideArr[0].getSlope() > diagonalArr[1].getSlope()) {
+                        std::cout << "error 3" << std::endl;
+                        return false;
+                    }
+                    if (diagonalArr[1].getSlope() > 0 && sideArr[0].getSlope() < diagonalArr[1].getSlope()) {
+                        std::cout << "error 3" << std::endl;
+                        return false;
+                    }
                 }
             }
         }

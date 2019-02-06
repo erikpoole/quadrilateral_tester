@@ -13,3 +13,6 @@ cover:
 
 test:
 	./test.sh
+
+compare:
+	./compare.sh

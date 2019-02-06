@@ -165,7 +165,11 @@ public:
                     }
                 }
             } else {
-                if (sideArr[0].getSlope() < diagonalArr[0].getSlope()) {
+                if (sideArr[1].getSlope() < 0 && sideArr[1].getSlope() > sideArr[2].getSlope()) {
+                    std::cout << "error 3" << std::endl;
+                    return false;
+                }
+                if (sideArr[1].getSlope() >= 0 && sideArr[1].getSlope() < sideArr[0].getSlope()) {
                     std::cout << "error 3" << std::endl;
                     return false;
                 }
@@ -192,9 +196,13 @@ public:
                     }
                 }
             } else {
-                if (sideArr[0].getSlope() > diagonalArr[0].getSlope()) {
+                if (sideArr[1].getSlope() > 0 && sideArr[1].getSlope() < sideArr[2].getSlope()) {
                     std::cout << "error 3" << std::endl;
                     return false;
+                }
+                if (sideArr[1].getSlope() <= 0 && sideArr[1].getSlope() > sideArr[0].getSlope()) {
+                    std::cout << "error 3" << std::endl;
+//                    return false;
                 }
             }
         }
@@ -313,9 +321,7 @@ bool isValidInput(std::string inputString) {
 int main(int argc, const char * argv[]) {
 //    std::cout << "poop" << std::endl;
     std::string inputString;
-    bool linePresent = false;
     while(std::getline(std::cin, inputString)) {
-        linePresent = true;
         if (!isValidInput(inputString)) {
             std::cout << "error 1" << std::endl;
             return 0;
@@ -362,10 +368,5 @@ int main(int argc, const char * argv[]) {
             outputString = "quadrilateral";
         }
         std::cout << outputString << std::endl;
-    }
-    
-    if (!linePresent) {
-        std::cout << "error 1" << std::endl;
-        return 0;
     }
 }

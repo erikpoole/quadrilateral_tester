@@ -92,6 +92,46 @@ public:
     }
 };
 
+//****************************************************************************************************
+//****************************************************************************************************
+
+
+//adapted from Will Marrigna and https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+// Determine the orientation of three given points
+int setOrientation(Point a, Point b,
+                   Point c) {
+    
+    int val = (b.getY() - a.getY()) * (c.getX() - b.getX()) -
+    (b.getX() - a.getX()) * (c.getY() - b.getY());
+    
+    if (val == 0)
+        return 0; // points are colinear
+    
+    return (val > 0) ? 1 : 2; // 1 = clockwise | 2 = counter-clockwise
+}
+
+//adapted from Will Marrigna and https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+// Determines if point 'x' is on the line a-b
+bool onSegment(Point a, Point x,
+               Point b) {
+    
+    bool xSegCheck = x.getX() <= std::max(a.getX(), b.getX()) &&
+    x.getX() >= std::min(a.getX(), b.getX());
+    bool ySegCheck = x.getY() <= std::max(a.getY(), b.getY()) &&
+    x.getY() >= std::min(a.getY(), b.getY());
+    
+    if (xSegCheck && ySegCheck) {
+        return true;
+    }
+    return false;
+}
+
+
+
+//****************************************************************************************************
+//****************************************************************************************************
+
+
 
 class Shape{
 private:
@@ -121,6 +161,54 @@ public:
     
     Line getSide(const int& sideNumber) const {return sideArr[sideNumber];}
     Line getDiagonal(int diagonalNumber) const {return diagonalArr[diagonalNumber];}
+    
+    
+    //adapted from Will Marrigna and https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+    // Determines based on orientation if lines intersect
+    bool doIntersect(Point a, Point b,
+                     Point c, Point d) {
+        
+        int o1 = setOrientation(a, b, c);
+        int o2 = setOrientation(a, b, d);
+        int o3 = setOrientation(c, d, a);
+        int o4 = setOrientation(c, d, b);
+        
+        if (o1 != o2 && o3 != o4)
+            return true;
+        
+        // c-a-d are collinear and a lies on the line c-d
+        if (o3 == 0 && onSegment(c, a, d))
+            return true;
+        
+        // c-b-d are collinear and b lies on the line c-d
+        if (o4 == 0 && onSegment(c, b, d))
+            return true;
+        
+        // a-b-c are collinear and c lies on the line a-b
+        if (o1 == 0 && onSegment(a, c, b))
+            return true;
+        
+        // a-d-b are collinear and d lies on the line a-b
+        if (o2 == 0 && onSegment(a, d, b))
+            return true;
+        
+        return false;
+    }
+    
+    //adapted from Will Marrigna and https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+    // checks for orientation of 3 points at a time and errors if lines are
+    // collinear or cross each other
+    void lineIntersectCheck() {
+        bool case1 = doIntersect(pointArr[0], pointArr[1], pointArr[2],
+                                 pointArr[3]);
+        bool case2 = doIntersect(pointArr[1], pointArr[2], pointArr[3],
+                                 pointArr[0]);
+        
+        if (case1 || case2) {
+            std::cout << "error 3\n";
+            exit(3);
+        }
+    }
 
     bool isValid() {
         //checks intersecting points
@@ -142,133 +230,8 @@ public:
             }
         }
         
-        //checks crossing points
-        //checks clockwise:
-        if (sideArr[3].getSlope() < sideArr[0].getSlope()) {
-            if (sideArr[3].getSlope() > diagonalArr[0].getSlope()) {
-                //if second line's slope is negative
-                if (sideArr[1].getSlope() < 0) {
-                    //if third line's slope is positive
-                    if (sideArr[2].getSlope() > 0 && sideArr[0].getSlope() < sideArr[3].getSlope()) {
-                        std::cout << "error 3" << std::endl;
-                        return false;
-                    //if third line's slope is negative
-                    } else if (sideArr[2].getSlope() < sideArr[1].getSlope()) {
-                        std::cout << "error 3" << std::endl;
-                        return false;
-                    }
-                //if second line's slope is positive
-                } else {
-                    if (diagonalArr[1].getSlope() > sideArr[1].getSlope()) {
-                        std::cout << "error 3" << std::endl;
-                        return false;
-                    }
-                }
-            } else {
-                if (sideArr[0].getSlope() < diagonalArr[0].getSlope()) {
-                    if (sideArr[1].getSlope() > 0 && sideArr[2].getSlope() > 0) {
-                        if (sideArr[1].getSlope() <= sideArr[2].getSlope()) {
-                            if (diagonalArr[1].getSlope() > sideArr[0].getSlope()) {
-                                std::cout << "error 3" << std::endl;
-                                return false;
-                            }
-                            return true;
-                        } else {
-                            std::cout << "error 3" << std::endl;
-                            return false;
-                        }
-                    } else if (sideArr[1].getSlope() <= 0 && sideArr[2].getSlope() <= 0) {
-                        if (sideArr[1].getSlope() <= sideArr[2].getSlope()) {
-                            if (diagonalArr[1].getSlope() > sideArr[0].getSlope()) {
-                                std::cout << "error 3" << std::endl;
-                                return false;
-                            }
-                            return true;
-                        } else {
-                            std::cout << "error 3" << std::endl;
-                            return false;
-                        }
-                    } else if (sideArr[1].getSlope() > 0 && sideArr[2].getSlope() <= 0) {
-                        if (sideArr[0].getSlope() < sideArr[3].getSlope()) {
-                            return true;
-                        } else {
-                            std::cout << "error 3" << std::endl;
-                            return false;
-                        }
-                    } else if (sideArr[1].getSlope() <= 0 && sideArr[2].getSlope() > 0) {
-                        if (sideArr[2].getSlope() < sideArr[3].getSlope()) {
-                            return true;
-                        } else {
-                            std::cout << "error 3" << std::endl;
-                            return false;
-                        }
-                    }
-
-                }
-            }
-        //checks counter-clockwise:
-        } else {
-            if (sideArr[3].getSlope() < diagonalArr[0].getSlope()) {
-                //if second line's slope is positive
-                if (sideArr[1].getSlope() > 0) {
-                    //if third line's slope is negative
-                    if (sideArr[2].getSlope() < 0 && sideArr[0].getSlope() > sideArr[3].getSlope()) {
-                        std::cout << "error 3" << std::endl;
-                        return false;
-                        //if third line's slope is positive
-                    } else if (sideArr[2].getSlope() > sideArr[1].getSlope()) {
-                        std::cout << "error 3" << std::endl;
-                        return false;
-                    }
-                    //if second line's slope is negative
-                } else {
-                    if (diagonalArr[1].getSlope() < sideArr[1].getSlope()) {
-                        std::cout << "error 3" << std::endl;
-                        return false;
-                    }
-                }
-            } else {
-                if (sideArr[0].getSlope() > diagonalArr[0].getSlope()) {
-                    if (sideArr[1].getSlope() <= 0 && sideArr[2].getSlope() <= 0) {
-                        if (sideArr[1].getSlope() > sideArr[2].getSlope()) {
-                            if (diagonalArr[1].getSlope() < sideArr[0].getSlope()) {
-                                std::cout << "error 3" << std::endl;
-                                return false;
-                            }
-                            return true;
-                        } else {
-                            std::cout << "error 3" << std::endl;
-                            return false;
-                        }
-                    } else if (sideArr[1].getSlope() > 0 && sideArr[2].getSlope() > 0) {
-                        if (sideArr[1].getSlope() > sideArr[2].getSlope()) {
-                            if (diagonalArr[1].getSlope() < sideArr[0].getSlope()) {
-                                std::cout << "error 3" << std::endl;
-                                return false;
-                            }
-                            return true;
-                        } else {
-                            std::cout << "error 3" << std::endl;
-                            return false;
-                        }
-                    } else if (sideArr[1].getSlope() <= 0 && sideArr[2].getSlope() > 0) {
-                        if (sideArr[0].getSlope() > sideArr[3].getSlope()) {
-                            return true;
-                        } else {
-                            std::cout << "error 3" << std::endl;
-                            return false;
-                        }
-                    } else if (sideArr[1].getSlope() > 0 && sideArr[2].getSlope() <= 0) {
-                        if (sideArr[2].getSlope() > sideArr[3].getSlope()) {
-                            return true;
-                        } else {
-                            std::cout << "error 3" << std::endl;
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
+        lineIntersectCheck();
+        
         return true;
     }
 

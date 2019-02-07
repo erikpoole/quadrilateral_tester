@@ -149,7 +149,7 @@ public:
                 //if second line's slope is negative
                 if (sideArr[1].getSlope() < 0) {
                     //if third line's slope is positive
-                    if (sideArr[2].getSlope() > 0) {
+                    if (sideArr[2].getSlope() > 0 && sideArr[0].getSlope() < sideArr[3].getSlope()) {
                         std::cout << "error 3" << std::endl;
                         return false;
                     //if third line's slope is negative
@@ -212,7 +212,7 @@ public:
                 //if second line's slope is positive
                 if (sideArr[1].getSlope() > 0) {
                     //if third line's slope is negative
-                    if (sideArr[2].getSlope() < 0) {
+                    if (sideArr[2].getSlope() < 0 && sideArr[0].getSlope() > sideArr[3].getSlope()) {
                         std::cout << "error 3" << std::endl;
                         return false;
                         //if third line's slope is positive

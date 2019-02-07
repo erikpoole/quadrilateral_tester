@@ -168,7 +168,7 @@ public:
                 if (sideArr[0].getSlope() < diagonalArr[0].getSlope()) {
                     if (sideArr[1].getSlope() > 0 && sideArr[2].getSlope() > 0) {
                         if (sideArr[1].getSlope() <= sideArr[2].getSlope()) {
-                            if (sideArr[0].getSlope() > sideArr[3].getSlope()) {
+                            if (diagonalArr[1].getSlope() > sideArr[0].getSlope()) {
                                 std::cout << "error 3" << std::endl;
                                 return false;
                             }
@@ -179,7 +179,7 @@ public:
                         }
                     } else if (sideArr[1].getSlope() <= 0 && sideArr[2].getSlope() <= 0) {
                         if (sideArr[1].getSlope() <= sideArr[2].getSlope()) {
-                            if (sideArr[0].getSlope() > sideArr[3].getSlope()) {
+                            if (diagonalArr[1].getSlope() > sideArr[0].getSlope()) {
                                 std::cout << "error 3" << std::endl;
                                 return false;
                             }
@@ -188,15 +188,15 @@ public:
                             std::cout << "error 3" << std::endl;
                             return false;
                         }
-                    } else if (sideArr[2].getSlope() > 0) {
-                        if (sideArr[1].getSlope() > 0 && sideArr[2].getSlope() <= 0) {
+                    } else if (sideArr[1].getSlope() > 0 && sideArr[2].getSlope() <= 0) {
+                        if (sideArr[0].getSlope() < sideArr[3].getSlope()) {
                             return true;
                         } else {
                             std::cout << "error 3" << std::endl;
                             return false;
                         }
-                    } else if (sideArr[2].getSlope() <= 0) {
-                        if (sideArr[1].getSlope() <= 0 && sideArr[2].getSlope() > 0) {
+                    } else if (sideArr[1].getSlope() <= 0 && sideArr[2].getSlope() > 0) {
+                        if (sideArr[2].getSlope() < sideArr[3].getSlope()) {
                             return true;
                         } else {
                             std::cout << "error 3" << std::endl;
@@ -231,7 +231,7 @@ public:
                 if (sideArr[0].getSlope() > diagonalArr[0].getSlope()) {
                     if (sideArr[1].getSlope() <= 0 && sideArr[2].getSlope() <= 0) {
                         if (sideArr[1].getSlope() > sideArr[2].getSlope()) {
-                            if (sideArr[0].getSlope() > sideArr[3].getSlope()) {
+                            if (diagonalArr[1].getSlope() < sideArr[0].getSlope()) {
                                 std::cout << "error 3" << std::endl;
                                 return false;
                             }
@@ -242,7 +242,7 @@ public:
                         }
                     } else if (sideArr[1].getSlope() > 0 && sideArr[2].getSlope() > 0) {
                         if (sideArr[1].getSlope() > sideArr[2].getSlope()) {
-                            if (sideArr[0].getSlope() < sideArr[3].getSlope()) {
+                            if (diagonalArr[1].getSlope() < sideArr[0].getSlope()) {
                                 std::cout << "error 3" << std::endl;
                                 return false;
                             }
@@ -251,15 +251,15 @@ public:
                             std::cout << "error 3" << std::endl;
                             return false;
                         }
-                    } else if (sideArr[2].getSlope() <= 0) {
-                        if (sideArr[1].getSlope() <= 0 && sideArr[2].getSlope() > 0) {
+                    } else if (sideArr[1].getSlope() <= 0 && sideArr[2].getSlope() > 0) {
+                        if (sideArr[0].getSlope() > sideArr[3].getSlope()) {
                             return true;
                         } else {
                             std::cout << "error 3" << std::endl;
                             return false;
                         }
-                    } else if (sideArr[2].getSlope() > 0) {
-                        if (sideArr[1].getSlope() > 0 && sideArr[2].getSlope() <= 0) {
+                    } else if (sideArr[1].getSlope() > 0 && sideArr[2].getSlope() <= 0) {
+                        if (sideArr[2].getSlope() > sideArr[3].getSlope()) {
                             return true;
                         } else {
                             std::cout << "error 3" << std::endl;
